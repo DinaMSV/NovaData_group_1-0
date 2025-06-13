@@ -42,42 +42,57 @@ jobs:
 
           # 2. Время обновления (UTC+3)
           now = datetime.now(timezone.utc).astimezone(timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M GMT%z')
+          updated_line = f"_Обновлено: {now}_\n"
 
-          # 3. Сформировать строку с датой обновления курсивом
-          updated_line = f"_Обновлено: {now}_\n\n"
+          # 3. Получаем погоду для Абакана
+          api_key = os.environ['WEATHER_API_KEY']
+          abakan_url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q=Abakan&aqi=no"
+          aba_data = requests.get(abakan_url).json()
+          t_abakan = aba_data['current']['temp_c']
+          c_abakan = aba_data['current']['condition']['text']
+          i_abakan = aba_data['current']['condition']['icon']
+          if i_abakan.startswith("//"):
+              i_abakan = "https:" + i_abakan
 
-          # 4. Начать строить новый блок между маркерами
-          new_block = (
-              "<!-- WEATHER:START -->\n"
-              f"{updated_line}"
-              "| Член команды  | Город               | 🌡️ Темп.  | Условия          |\n"
-              "|---------------|---------------------|-----------|--------------------|\n"
+          # 4. Строим таблицу по Абакану
+          abakan_table = (
+            "#### Погода в Абакане\n\n"
+            "| Температура | Условия |\n"
+            "|-------------|----------|\n"
+            f"| {t_abakan:.1f}°C     | ![]({i_abakan}) {c_abakan} |\n\n"
           )
 
-          # 5. Запрашиваем и добавляем строки таблицы
-          api_key = os.environ['WEATHER_API_KEY']
+          # 5. Строим таблицу по другим городам
+          team_table = (
+            "#### Погода в наших городах\n\n"
+            "| Член команды  | Город               | 🌡️ Темп.  | Условия          |\n"
+            "|---------------|---------------------|-----------|--------------------|\n"
+          )
+
           for user, city in targets.items():
               url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}&aqi=no"
               data = requests.get(url).json()
-
               temp = data['current']['temp_c']
               cond = data['current']['condition']['text']
               icon = data['current']['condition']['icon']
-              # если icon начинается с "//", дописываем протокол
               if icon.startswith("//"):
                   icon = "https:" + icon
+              team_table += f"| @{user:<13} | {city:<19} | {temp:>6.1f}°C | ![]({icon}) {cond:<12} |\n"
 
-              new_block += (
-                f"| @{user:<13} | {city:<19} | {temp:>6.1f}°C | ![]({icon}) {cond:<12} |\n"
-              )
+          # 6. Собираем блок целиком
+          new_block = (
+            "<!-- WEATHER:START -->\n"
+            f"{updated_line}\n"
+            f"{abakan_table}"
+            f"{team_table}\n"
+            "<!-- WEATHER:END -->"
+          )
 
-          # 6. Закрываем блок и заменяем его в README.md
-          new_block += "<!-- WEATHER:END -->"
+          # 7. Обновляем README.md
           path = "README.md"
           text = open(path, encoding="utf-8").read()
           pattern = r"<!-- WEATHER:START -->.*?<!-- WEATHER:END -->"
           updated = re.sub(pattern, new_block, text, flags=re.DOTALL)
-
           with open(path, "w", encoding="utf-8") as f:
               f.write(updated)
           EOF
