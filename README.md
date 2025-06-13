@@ -1,1 +1,2 @@
 # NovaData_group_1-0
+### Привет! Мы команда NovaData_group_1-0 :)
