@@ -1,0 +1,110 @@
+name: Update Our Weather
+
+on:
+  schedule:
+    - cron: '0 * * * *'     # каждый час, начало часа (UTC)
+  workflow_dispatch:       # ручной запуск
+
+permissions:
+  contents: write          # разрешаем коммитить изменения
+
+jobs:
+  update-weather:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Update README via Python
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        run: |
+          python - << 'EOF'
+          import os, re
+          import requests
+          from datetime import datetime, timezone, timedelta
+
+          # 1. Список пользователей и их городов
+          targets = {
+            "aytomaximo": "Moscow",
+            "sychtx":     "Nizhny Novgorod",
+            "Dina_Mo":    "Stupino"
+          }
+
+          # 2. Время обновления (UTC+3)
+          now = datetime.now(timezone.utc).astimezone(timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M GMT%z')
+          updated_line = f"_Обновлено: {now}_\n"
+
+          # 3. Получаем погоду для Абакана
+          api_key = os.environ['WEATHER_API_KEY']
+          abakan_url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q=Abakan&aqi=no"
+          aba_data = requests.get(abakan_url).json()
+          t_abakan = aba_data['current']['temp_c']
+          c_abakan = aba_data['current']['condition']['text']
+          i_abakan = aba_data['current']['condition']['icon']
+          if i_abakan.startswith("//"):
+              i_abakan = "https:" + i_abakan
+
+          # 4. Строим таблицу по Абакану
+          abakan_table = (
+            "#### Погода в Абакане\n\n"
+            "| Температура | Условия |\n"
+            "|-------------|----------|\n"
+            f"| {t_abakan:.1f}°C     | ![]({i_abakan}) {c_abakan} |\n\n"
+          )
+
+          # 5. Строим таблицу по другим городам
+          team_table = (
+            "#### Погода в наших городах\n\n"
+            "| Член команды  | Город               | 🌡️ Темп.  | Условия          |\n"
+            "|---------------|---------------------|-----------|--------------------|\n"
+          )
+
+          for user, city in targets.items():
+              url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}&aqi=no"
+              data = requests.get(url).json()
+              temp = data['current']['temp_c']
+              cond = data['current']['condition']['text']
+              icon = data['current']['condition']['icon']
+              if icon.startswith("//"):
+                  icon = "https:" + icon
+              team_table += f"| @{user:<13} | {city:<19} | {temp:>6.1f}°C | ![]({icon}) {cond:<12} |\n"
+
+          # 6. Собираем блок целиком
+          new_block = (
+            "<!-- WEATHER:START -->\n"
+            f"{updated_line}\n"
+            f"{abakan_table}"
+            f"{team_table}\n"
+            "<!-- WEATHER:END -->"
+          )
+
+          # 7. Обновляем README.md
+          path = "README.md"
+          text = open(path, encoding="utf-8").read()
+          pattern = r"<!-- WEATHER:START -->.*?<!-- WEATHER:END -->"
+          updated = re.sub(pattern, new_block, text, flags=re.DOTALL)
+          with open(path, "w", encoding="utf-8") as f:
+              f.write(updated)
+          EOF
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add README.md
+            git commit -m "chore: обновлена погода для нескольких городов"
+            git push
+          else
+            echo "No changes to commit"
+          fi
