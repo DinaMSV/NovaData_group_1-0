@@ -8,20 +8,20 @@
 
 ### Текущая погода
 <!-- WEATHER:START -->
-_Обновлено: 2025-09-03 09:34 GMT+0300_
+_Обновлено: 2025-09-03 10:23 GMT+0300_
 
 #### Погода в Абакане
 
 | Температура | Условия |
 |-------------|----------|
-| 14.1°C     | ![](https://cdn.weatherapi.com/weather/64x64/day/389.png) Moderate or heavy rain with thunder |
+| 14.2°C     | ![](https://cdn.weatherapi.com/weather/64x64/day/386.png) Patchy light rain with thunder |
 
 #### Погода в наших городах
 
 | Член команды  | Город               | 🌡️ Темп.  | Условия          |
 |---------------|---------------------|-----------|--------------------|
-| @aytomaximo    | Moscow              |   13.1°C | ![](https://cdn.weatherapi.com/weather/64x64/day/122.png) Overcast     |
-| @sychtx        | Nizhny Novgorod     |   14.4°C | ![](https://cdn.weatherapi.com/weather/64x64/day/122.png) Overcast     |
-| @Dina_Mo       | Stupino             |   14.4°C | ![](https://cdn.weatherapi.com/weather/64x64/day/116.png) Partly cloudy |
+| @aytomaximo    | Moscow              |   14.2°C | ![](https://cdn.weatherapi.com/weather/64x64/day/122.png) Overcast     |
+| @sychtx        | Nizhny Novgorod     |   14.2°C | ![](https://cdn.weatherapi.com/weather/64x64/day/296.png) Light rain   |
+| @Dina_Mo       | Stupino             |   15.2°C | ![](https://cdn.weatherapi.com/weather/64x64/day/116.png) Partly cloudy |
 
 <!-- WEATHER:END -->
