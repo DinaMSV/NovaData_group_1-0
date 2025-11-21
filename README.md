@@ -8,13 +8,13 @@
 
 ### Текущая погода
 <!-- WEATHER:START -->
-_Обновлено: 2025-11-22 00:22 GMT+0300_
+_Обновлено: 2025-11-22 01:25 GMT+0300_
 
 #### Погода в Абакане
 
 | Температура | Условия |
 |-------------|----------|
-| -0.7°C     | ![](https://cdn.weatherapi.com/weather/64x64/night/113.png) Clear |
+| -0.7°C     | ![](https://cdn.weatherapi.com/weather/64x64/night/116.png) Partly cloudy |
 
 #### Погода в наших городах
 
