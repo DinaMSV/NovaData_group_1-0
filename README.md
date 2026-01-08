@@ -8,20 +8,20 @@
 
 ### Текущая погода
 <!-- WEATHER:START -->
-_Обновлено: 2026-01-08 05:20 GMT+0300_
+_Обновлено: 2026-01-08 07:04 GMT+0300_
 
 #### Погода в Абакане
 
 | Температура | Условия |
 |-------------|----------|
-| -8.8°C     | ![](https://cdn.weatherapi.com/weather/64x64/day/122.png) Overcast |
+| -8.7°C     | ![](https://cdn.weatherapi.com/weather/64x64/day/122.png) Overcast |
 
 #### Погода в наших городах
 
 | Член команды  | Город               | 🌡️ Темп.  | Условия          |
 |---------------|---------------------|-----------|--------------------|
 | @aytomaximo    | Moscow              |   -5.7°C | ![](https://cdn.weatherapi.com/weather/64x64/night/326.png) Light snow   |
-| @sychtx        | Nizhny Novgorod     |    0.3°C | ![](https://cdn.weatherapi.com/weather/64x64/night/332.png) Moderate snow |
-| @Dina_Mo       | Stupino             |   -4.8°C | ![](https://cdn.weatherapi.com/weather/64x64/night/332.png) Moderate snow |
+| @sychtx        | Nizhny Novgorod     |    0.0°C | ![](https://cdn.weatherapi.com/weather/64x64/night/326.png) Light snow   |
+| @Dina_Mo       | Stupino             |   -5.7°C | ![](https://cdn.weatherapi.com/weather/64x64/night/332.png) Moderate snow |
 
 <!-- WEATHER:END -->
