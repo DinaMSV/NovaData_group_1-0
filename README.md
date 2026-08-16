@@ -8,20 +8,20 @@
 
 ### Текущая погода
 <!-- WEATHER:START -->
-_Обновлено: 2026-08-16 16:36 GMT+0300_
+_Обновлено: 2026-08-16 17:29 GMT+0300_
 
 #### Погода в Абакане
 
 | Температура | Условия |
 |-------------|----------|
-| 17.8°C     | ![](https://cdn.weatherapi.com/weather/64x64/night/113.png) Sunny |
+| 16.2°C     | ![](https://cdn.weatherapi.com/weather/64x64/night/113.png) Clear |
 
 #### Погода в наших городах
 
 | Член команды  | Город               | 🌡️ Темп.  | Условия          |
 |---------------|---------------------|-----------|--------------------|
-| @aytomaximo    | Moscow              |   24.9°C | ![](https://cdn.weatherapi.com/weather/64x64/day/200.png) Thundery outbreaks in nearby |
-| @sychtx        | Nizhny Novgorod     |   12.9°C | ![](https://cdn.weatherapi.com/weather/64x64/day/176.png) Patchy rain nearby |
-| @Dina_Mo       | Stupino             |   24.0°C | ![](https://cdn.weatherapi.com/weather/64x64/day/200.png) Thundery outbreaks in nearby |
+| @aytomaximo    | Moscow              |   24.7°C | ![](https://cdn.weatherapi.com/weather/64x64/day/200.png) Thundery outbreaks in nearby |
+| @sychtx        | Nizhny Novgorod     |   11.0°C | ![](https://cdn.weatherapi.com/weather/64x64/day/119.png) Cloudy       |
+| @Dina_Mo       | Stupino             |   23.7°C | ![](https://cdn.weatherapi.com/weather/64x64/day/176.png) Patchy rain nearby |
 
 <!-- WEATHER:END -->
